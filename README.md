@@ -13,7 +13,7 @@ Don't forget the final dot. You can use the clone button to get directly the url
 4. Run the following code after cloning. Don't forget to change `proj_name`.
 ```
 git remote remove origin
-git remote add origin https://AQuintario@bitbucket.org/okuanters/proj_name.git
+git remote add origin https://your_user_name@bitbucket.org/okuanters/proj_name.git
 git push -u origin master
 ```
 5. Reload your project's repo web to check everything's fine.
