@@ -1,5 +1,7 @@
 # ODAD guide to start a new project
 
+## Starting a new project
+
 1. Go to Bitbucket and create a new repository with name `proj_name`. In the "project" dialogue selection select okuant.
 Note: in this case, project means "group", all our repositories/projects are under that group.
 2. Create directory's project,  `mkdir proj_name && cd proj_name`.
@@ -17,3 +19,6 @@ git push -u origin master
 5. Reload your project's repo web to check everything's fine.
 6. Edit README.
 
+## Notes
+The `.gitignore` files inside every subdirectory are intentionally left empty.
+The reason to their existency is to keep the directory hierarchy, since git doesn't allow to commit empty dirs.
