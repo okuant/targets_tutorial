@@ -3,9 +3,9 @@
 ## Starting a new project
 
 1. Go to Bitbucket and create a new repository with name `proj_name`.
-i. In the "project" dialogue selection select okuant.
+  1. In the "project" dialogue selection select okuant.
 Note: in this case, project means "group", all our repositories/projects are under that group.
-ii. Make sure it's created *without* a README.md
+  2. Make sure it's created *without* a README.md
 2. Create directory's project,  `mkdir proj_name && cd proj_name`.
 3. Clone this template with
 ```
