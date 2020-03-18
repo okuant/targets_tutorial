@@ -20,7 +20,15 @@ git remote add origin https://your_user_name@bitbucket.org/okuanters/proj_name.g
 git push -u origin master
 ```
 * Reload your project's repo web to check everything's fine.
-* Edit README.
+* Rename rproj file `mv template.rproj proj_name.rproj`
+* Commit change
+```
+git add --all
+git commit -m "Rename template.rproj"
+git push origin master
+```
+* Edit README. Add a thorough description of what your project is about, what needs to run
+(data, libraries) and what are the outputs that produces. Don't miss this step. Or else.
 
 ## Notes
 The `.gitignore` files inside every subdirectory are intentionally left empty.
