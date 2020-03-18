@@ -12,6 +12,7 @@ Note: in this case, project means "group", all our repositories/projects are und
 git clone https://your_user_name@bitbucket.org/okuanters/template.git .
 ```
 Don't forget the final dot. You can use the clone button to get directly the url with your user name.
+
 4. Run the following code after cloning. Don't forget to change `proj_name`.
 ```
 git remote remove origin
