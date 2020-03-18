@@ -2,7 +2,7 @@
 
 ## Starting a new project
 
-* Go to Bitbucket and create a new repository with name `proj_name`.
+* Go to Bitbucket and create a new repository. Let's saye you name it `proj_name`.
     * In the "project" dialogue selection select okuant.
 Note: in this case, project means "group", all our repositories/projects are under that group.
     * Make sure it's created *without* a README.md
