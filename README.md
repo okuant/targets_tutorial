@@ -27,6 +27,7 @@ git add --all
 git commit -m "Rename template.rproj"
 git push origin master
 ```
+* Open your new `proj_name.rproj` in RStudio. Optionally, check again the repo in bitbucket.
 * Edit README. Add a thorough description of what your project is about, what needs to run
 (data, libraries) and what are the outputs that produces. Don't miss this step. Or else.
 
