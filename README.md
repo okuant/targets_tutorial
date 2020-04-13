@@ -31,6 +31,18 @@ git push origin master
 * Edit README. Add a thorough description of what your project is about, what needs to run
 (data, libraries) and what are the outputs that produces. Don't miss this step. Or else.
 
+## The `init.R` script
+
+This piece of code is intended to be run once when you've set up your project.
+It populates the data structure of the project, creating physical directories in your DATA_path and
+symlinks in the local dir.
+`source` it after you've adapted the config files to your required data.
+
+Known synch problem: with OneDrive you may have to source the script twice if you have the space saving setting enabled.
+In that case, the first source will download the data, but you'll get an error when trying to create the symlinks.
+The second source should make things right.
+
 ## Notes
-The `.gitignore` files inside every subdirectory are intentionally left empty.
+Some `.gitignore` files inside every subdirectory are intentionally left empty.
 The reason to their existency is to keep the directory hierarchy, since git doesn't allow to commit empty dirs.
+Symlinks are supposed to be ignored.
