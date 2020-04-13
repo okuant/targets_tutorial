@@ -9,3 +9,4 @@
 
 # Now exclude our type
 !./*.yaml
+!./*.yml
