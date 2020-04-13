@@ -1,0 +1,13 @@
+default:
+  datasets: 
+    d1: "okidealistaA.txt"
+    d2: "crm_caciudad_polig.RData"
+  colclasses: !expr c(venta = "toupper", ascensor = "yes_no_logical")
+  drop: !expr c("descripcion", "m2utiles", "caprov", "caciudadid")
+  new_features:
+    m_y: !expr idv[, funciona := T]
+  output: "data/output/idv.RDS"
+
+other:
+  inherits: default
+
