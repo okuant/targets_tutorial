@@ -32,9 +32,11 @@ dir.create(proc_data_physdir, recursive = T, showWarnings = FALSE)
 procdata_dest <- "./data/processed"
 R.utils::createLink(link = procdata_dest,
                     target = proc_data_physdir)
+# Alt
 # file.symlink(from = proc_data_physdir,
 #              to = procdata_dest)
-saveRDS(proc_data_physdir, "data/processed/proc_data_physdir.RDS")
+# Test
+# saveRDS(proc_data_physdir, "data/processed/proc_data_physdir.RDS")
 
 
 # Prepare output --------------------------------------------------------------------------------------------------
@@ -43,7 +45,9 @@ dir.create(output_physdir, showWarnings = FALSE)
 
 output_dest <- "./output"
 R.utils::createLink(link = output_dest,
-                    target = proc_data_physdir)
+                    target = output_physdir)
+# Test
+# saveRDS(proc_data_physdir, "output/proc_data_physdir.RDS")
 
 
 
