@@ -1,6 +1,6 @@
 default:
   datasets: 
-    d1: "okidealistaA.txt"
+    d1: "pob_costa.csv"
     d2: "crm_caciudad_polig.RData"
   colclasses: !expr c(venta = "toupper", ascensor = "yes_no_logical")
   drop: !expr c("descripcion", "m2utiles", "caprov", "caciudadid")
