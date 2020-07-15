@@ -41,7 +41,7 @@ R.utils::createLink(link = procdata_dest,
 
 # Prepare output --------------------------------------------------------------------------------------------------
 output_physdir <- file.path(data_path, proj_name, "output")
-dir.create(output_physdir, showWarnings = FALSE)
+dir.create(output_physdir, recursive = T, showWarnings = FALSE)
 
 output_dest <- "./output"
 R.utils::createLink(link = output_dest,
