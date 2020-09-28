@@ -1,4 +1,13 @@
-.Rproj.user
-.Rhistory
-.RData
-.Ruserdata
+# Ignore everything
+./*
+
+# Do not ignore directories
+!./*/
+
+# Do not ignore .gitignore files
+!./.gitignore
+
+# Do not ignore these types
+!./*.R
+!./README*
+!./*.Rproj
