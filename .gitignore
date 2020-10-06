@@ -11,3 +11,4 @@
 !./*.R
 !./README*
 !./*.Rproj
+.Rproj.user
