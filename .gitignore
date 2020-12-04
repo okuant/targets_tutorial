@@ -1,5 +1,8 @@
 # Ignore everything
 ./*
+.Rhistory
+data/*
+output
 
 # Do not ignore directories
 !./*/
@@ -11,3 +14,4 @@
 !./*.R
 !./README*
 !./*.Rproj
+.Rproj.user
