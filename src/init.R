@@ -21,6 +21,8 @@ files <- unlist(files)
 files <- unique(files)
 
 dataraw_link_dir <- "./data/raw"
+dataraw_content <- list.files(dataraw_link_dir, full.names = T)
+file.remove(dataraw_content)
 lapply(files, function(f) R.utils::createLink(link = file.path(dataraw_link_dir, f),
                                               target = file.path(data_path, f),
                                               overwrite = TRUE))
