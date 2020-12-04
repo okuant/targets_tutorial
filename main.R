@@ -10,3 +10,6 @@
 # library(data.table)
 # library(ggplot2)
 
+# Read and write data like this:
+# inputdata <- readRDS("data/raw/inputdata.RDS")
+# saveRDS(object, "data/processed/object.RDS")

@@ -22,7 +22,8 @@ files <- unique(files)
 
 dataraw_link_dir <- "./data/raw"
 lapply(files, function(f) R.utils::createLink(link = file.path(dataraw_link_dir, f),
-                                              target = file.path(data_path, f)))
+                                              target = file.path(data_path, f),
+                                              overwrite = TRUE))
 
 
 # Prepare data/processed ------------------------------------------------------------------------------------------
@@ -31,7 +32,8 @@ dir.create(proc_data_physdir, recursive = T, showWarnings = FALSE)
 
 procdata_dest <- "./data/processed"
 R.utils::createLink(link = procdata_dest,
-                    target = proc_data_physdir)
+                    target = proc_data_physdir,
+                    overwrite = TRUE)
 # Alt
 # file.symlink(from = proc_data_physdir,
 #              to = procdata_dest)
@@ -45,7 +47,8 @@ dir.create(output_physdir, recursive = T, showWarnings = FALSE)
 
 output_dest <- "./output"
 R.utils::createLink(link = output_dest,
-                    target = output_physdir)
+                    target = output_physdir,
+                    overwrite = TRUE)
 # Test
 # saveRDS(proc_data_physdir, "output/proc_data_physdir.RDS")
 
