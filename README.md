@@ -1,5 +1,31 @@
 # ODAD guide to start a new project
 
+## First of all...
+
+Do you have the environment variables `DATA_PATH` and `CODE_PATH` defined? If yes, go to the next section. If not, you must set up them.
+The next steps depend on the operating system you are working with.
+
+### UNIX-like systems
+
+* Locate your R_HOME with Sys.getenv("R_HOME").
+* Modify the file "$R_HOME/etc/Renviron" adding this lines at the end
+```
+        DATA_PATH="absolute path to Onedrive DATA folder."
+        CODE_PATH="path to your code."
+```
+* Restart R for changes to take effect.
+
+### Windows-like systems
+
+* Run usethis::edit_r_environ() in the console.
+* Modify the file adding this lines at the end
+```
+        DATA_PATH="absolute path to Onedrive DATA folder."
+        CODE_PATH="path to your code."
+```
+* Restart R for changes to take effect.
+
+
 ## Starting a new project
 
 * Go to Bitbucket and create a new repository. Let's saye you name it `proj_name`.
