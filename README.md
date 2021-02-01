@@ -2,7 +2,7 @@
 
 ## First of all...
 
-Do you have the environment variables `DATA_PATH` and `CODE_PATH` defined? If yes, go to the next section. If not, you must set up them.
+Do you have the environment variables `DATA_PATH` and `CODE_PATH` defined? If so, go to the next section. If not, you must set up them.
 The next steps depend on the operating system you are working with.
 
 ### UNIX-like systems
