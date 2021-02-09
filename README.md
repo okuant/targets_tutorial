@@ -19,7 +19,7 @@ Do you have the environment variables `DATA_PATH` and `CODE_PATH` defined? If so
 * Go to Bitbucket and create a new repository. Let's saye you name it `proj_name`.
     * In the "project" dialogue selection select okuant.
 Note: in this case, project means "group", all our repositories/projects are under that group.
-    * Make sure it's created *without* a README.md
+    * Make sure it's created *without* a README.md and *without* a .gitignore.
 * Create directory's project,  `mkdir proj_name && cd proj_name`.
 * Clone this template with
 ```
