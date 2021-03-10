@@ -1,11 +1,25 @@
 # ODAD guide to start a new project
 
+## First of all...
+
+Do you have the environment variables `DATA_PATH` and `CODE_PATH` defined? If so, go to the next section. If not, you must set up them.
+
+
+* Run usethis::edit_r_environ() in the console.
+* Modify the file adding this lines at the end
+```
+        DATA_PATH="absolute path to Onedrive DATA folder."
+        CODE_PATH="path to your code."
+```
+* Restart R for changes to take effect.
+
+
 ## Starting a new project
 
 * Go to Bitbucket and create a new repository. Let's saye you name it `proj_name`.
     * In the "project" dialogue selection select okuant.
 Note: in this case, project means "group", all our repositories/projects are under that group.
-    * Make sure it's created *without* a README.md
+    * Make sure it's created *without* a README.md and *without* a .gitignore.
 * Create directory's project,  `mkdir proj_name && cd proj_name`.
 * Clone this template with
 ```
