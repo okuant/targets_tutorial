@@ -64,4 +64,4 @@ Please, make sure all `.gitignore` files in each new directory you create in you
 
 ## On saving your code:
 Do commit to your project repository often and keep it updated with the remote.
-[READ THIS](../../template/commits_style_guide.md)
+[READ THIS](https://bitbucket.org/okuanters/template/src/master/commits_syle_guide.md)
