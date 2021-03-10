@@ -47,3 +47,7 @@ Some `.gitignore` files inside every subdirectory are intentionally left empty.
 The reason to their existency is to keep the directory hierarchy, since git doesn't allow to commit empty dirs.
 Symlinks are supposed to be ignored.
 Please, make sure all `.gitignore` files in each new directory you create in your own repository cloned from this template have the corresponding instructions.
+
+## On saving your code:
+Do commit to your project repository often and keep it updated with the remote.
+[READ THIS](commits_style_guide.md)
