@@ -34,7 +34,7 @@ git remote add origin https://your_user_name@bitbucket.org/okuanters/proj_name.g
 git push -u origin master
 ```
 * Reload your project's repo web to check everything's fine.
-* Rename rproj file `mv template.rproj proj_name.rproj`
+* Rename rproj file `mv template.Rproj proj_name.Rproj`
 * Commit change
 ```
 git add --all
