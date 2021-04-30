@@ -1,61 +1,88 @@
-# Basics ----------------------------------------------------------------------------------------------------------
+# Basics -----------------------------------------------------------------------
 library(okutools)
 
-proj_name <- list.files(".", pattern = "*.Rproj")
-proj_name <- gsub("\\.Rproj", "", proj_name)
+proj_name <- list.files(".", pattern = "*.Rproj") %>% 
+  stringr::str_replace("\\.Rproj", "")
 
-data_path <- Sys.getenv("DATA_PATH")
+# Populate data/raw ------------------------------------------------------------
+unlist_configs <- list.files(path = "./cfg", ".yml", full.names = T) %>%
+  purrr::map(yaml::yaml.load_file, eval.expr = F) %>%
+  unlist %>% 
+  suppressWarnings
 
-# Populate data/raw -----------------------------------------------------------------------------------------------
-configs <- purrr::map(
-  list.files(path = "./cfg", ".yml", full.names = T),
-  load_config
-)
-configs <- purrr::map(
-  configs,
-  `$`, get
-)
+matches_with_file_path <- unlist_configs %>%
+  names %>%
+  stringr::str_which("input_file_path")
 
-files <- purrr::invoke_map(configs, "datasets")
-files <- unlist(files)
-files <- unique(files)
+input_files <- unlist_configs[matches_with_file_path] %>% 
+  unique %>% 
+  basename
 
+data_path_files <- list.files(data_path(), recursive = TRUE)
+
+paths_to_link_matches <- lapply(
+  input_files,
+  function(f) stringr::str_subset(
+    pattern = paste0("/", f),
+    string = data_path_files
+  ))
+no_match <- sapply(paths_to_link_matches, length) == 0
+if (any(no_match)) {
+  warning("No matching files found for: ",
+          paste(input_files[no_match], collapse = ", ")
+  )
+}
+
+paths_to_link <- paths_to_link_matches %>%
+  unlist %>%
+  data_path() %>%
+  file.info() %>%
+  data.table::as.data.table(keep.rownames = "file_path") %>%
+  .[, `:=`(file_name = basename(file_path))] %>%
+  .[, N := .N, file_name] %>%
+  data.table::setorder(-N, file_name, -mtime) %>%
+  .[] %>% 
+  .[, first(.SD), file_name] %>% 
+  .[["file_path"]]
+
+rm(input_files, matches_with_file_path, data_path_files, unlist_configs,
+   paths_to_link_matches, no_match)
+
+# Setup raw ---------------------------------------------------------------
 dataraw_link_dir <- "./data/raw"
-dataraw_content <- list.files(dataraw_link_dir, full.names = T)
-file.remove(dataraw_content)
-lapply(files, function(f) R.utils::createLink(link = file.path(dataraw_link_dir, f),
-                                              target = file.path(data_path, f),
-                                              overwrite = TRUE))
+dir_content <- list.files(dataraw_link_dir, full.names = T)
+symlink_filter <- dir_content %>%
+  Sys.readlink %>% 
+  stringr::str_length() > 0
+dir_content[symlink_filter] %>%
+  file.remove
 
+lapply(paths_to_link,
+       function(f) R.utils::createLink(link = file.path(dataraw_link_dir,
+                                                        basename(f)),
+                                       target = f))
 
-# Prepare data/processed ------------------------------------------------------------------------------------------
-proc_data_physdir <- file.path(data_path, proj_name, "processed_data")
+# Prepare data/processed -------------------------------------------------------
+proc_data_physdir <- file.path(data_path(proj_name), "processed")
 dir.create(proc_data_physdir, recursive = T, showWarnings = FALSE)
 
 procdata_dest <- "./data/processed"
+file.remove(procdata_dest)
 R.utils::createLink(link = procdata_dest,
-                    target = proc_data_physdir,
-                    overwrite = TRUE)
-# Alt
-# file.symlink(from = proc_data_physdir,
-#              to = procdata_dest)
-# Test
-# saveRDS(proc_data_physdir, "data/processed/proc_data_physdir.RDS")
+                    target = proc_data_physdir)
 
 
-# Prepare output --------------------------------------------------------------------------------------------------
-output_physdir <- file.path(data_path, proj_name, "output")
-dir.create(output_physdir, recursive = T, showWarnings = FALSE)
+# Prepare output ---------------------------------------------------------------
+output_physdir <- file.path(data_path(proj_name), "output")
+dir.create(output_physdir, showWarnings = FALSE)
 
-output_dest <- "./output"
+output_dest <- "./data/output"
+file.remove(output_dest)
 R.utils::createLink(link = output_dest,
-                    target = output_physdir,
-                    overwrite = TRUE)
-# Test
-# saveRDS(proc_data_physdir, "output/proc_data_physdir.RDS")
+                    target = output_physdir)
 
 
 
-rm(configs, files, dataraw_link_dir, proc_data_physdir, procdata_dest)
-
-
+rm(dataraw_link_dir, proc_data_physdir, procdata_dest,
+   output_dest, output_physdir, proj_name, paths_to_link,
+   dir_content, symlink_filter)
