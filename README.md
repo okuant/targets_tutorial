@@ -16,6 +16,8 @@ Do you have the environment variables `DATA_PATH` and `CODE_PATH` defined? If so
 
 ## Starting a new project
 
+### Bitbucket 
+
 * Go to Bitbucket and create a new repository. Let's saye you name it `proj_name`.
     * In the "project" dialogue selection select okuant.
 Note: in this case, project means "group", all our repositories/projects are under that group.
@@ -33,6 +35,30 @@ git remote remove origin
 git remote add origin https://your_user_name@bitbucket.org/okuanters/proj_name.git
 git push -u origin master
 ```
+
+### Github
+
+* Go to Github and create a new repository. Let's saye you name it `proj_name`.
+    * In the "Owner" dialogue selection select okuant.
+    * Select Private
+    * Make sure it's created *without* a README.md and *without* a .gitignore.
+    * In the project settings page go to *Notifications* and set **Adress** as data.analytics@okuant.com and **Approved header** as `proj_name` then press **Setup notifications**
+* Create directory's project,  `mkdir proj_name && cd proj_name`.
+* Clone this template with
+```
+git clone git@github.com:okuant/template.git .
+```
+Don't forget the final dot. You can use the clone button to get directly the url with your user name.
+
+* Run the following code after cloning. Don't forget to change `proj_name`.
+```
+git remote remove origin
+git remote add origin git@github.com:okuant/proj_name.git
+git push -u origin master
+```
+
+### Common steps 
+
 * Reload your project's repo web to check everything's fine.
 * Rename rproj file `mv template.Rproj proj_name.Rproj`
 * Commit change
