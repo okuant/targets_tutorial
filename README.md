@@ -5,12 +5,17 @@
 Do you have the environment variables `DATA_PATH` and `CODE_PATH` defined? If so, go to the next section. If not, you must set up them.
 
 
-* Run usethis::edit_r_environ() in the console.
+* Run `usethis::edit_r_environ()` in the console.
 * Modify the file adding this lines at the end
 ```
         DATA_PATH="absolute path to Onedrive DATA folder."
         CODE_PATH="path to your code."
 ```
+* IMPORTANT!!! When R starts it searches for `.Renviron` in the `$HOME` directory or in the current working directory (often the directory of the project) and only executes one. If you want to have a project-side `.Renviron` you have to add the line
+```
+readRenviron("~/.Renviron")
+```
+at the top of the user `.Rprofile` file (Running `usethis::edit_r_profile()`) to make sure that the user `.Renviron` is also executed.
 * Restart R for changes to take effect.
 
 
