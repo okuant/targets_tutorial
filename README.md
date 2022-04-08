@@ -87,6 +87,13 @@ Known synch problem: with OneDrive you may have to source the script twice if yo
 In that case, the first source will download the data, but you'll get an error when trying to create the symlinks.
 The second source should make things right.
 
+## Installing a package
+
+You can install or update a package in two ways, but I strongly recommend you use the second one, because this way it will also be possible to use the packages in ShinyApps.
+
+1. Once you have cloned or pulled the package repository from Github, open the project with RStudio and type `devtools::install()` in the R console.
+2. To install a package in this way you need to have defined the `GITHUB_PAT` environment variable in your `.Renviron`. Click [here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) and follow the steps to create a PAT. Then, give the value of the PAT created to `GITHUB_PAT` environment variable. Finally, type `devtools::install_github("okuant/{package_name}")` in the R console.
+
 ## Notes
 Some `.gitignore` files inside every subdirectory are intentionally left empty.
 The reason to their existency is to keep the directory hierarchy, since git doesn't allow to commit empty dirs.
