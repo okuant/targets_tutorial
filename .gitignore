@@ -12,6 +12,6 @@ output
 
 # Do not ignore these types
 !./*.R
-!./README*
+!./README.md
 !./*.Rproj
 .Rproj.user
