@@ -59,7 +59,8 @@ Don't forget the final dot. You can use the clone button to get directly the url
 ```
 git remote remove origin
 git remote add origin git@github.com:okuant/proj_name.git
-git push -u origin master
+git branch -M main
+git push -u origin main
 ```
 
 ### Common steps 
