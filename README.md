@@ -75,7 +75,7 @@ git reset --hard # deletes Template's history
 ```
 git add --all
 git commit -m "Rename template.rproj"
-git push origin master
+git push origin main
 ```
 * Open your new `proj_name.rproj` in RStudio. Optionally, check again the repo in bitbucket.
 * Edit README. Add a thorough description of what your project is about, what needs to run
