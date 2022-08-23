@@ -21,6 +21,7 @@ at the top of the user `.Rprofile` file (Running `usethis::edit_r_profile()`) to
 
 ## Starting a new project
 
+<!---
 ### Bitbucket 
 
 * Go to Bitbucket and create a new repository. Let's saye you name it `proj_name`.
@@ -40,6 +41,7 @@ git remote remove origin
 git remote add origin https://your_user_name@bitbucket.org/okuanters/proj_name.git
 git push -u origin master
 ```
+--->
 
 ### Github
 
@@ -61,6 +63,8 @@ git remote remove origin
 git remote add origin git@github.com:okuant/proj_name.git
 git branch -M main
 git push -u origin main
+git fetch --all # not super sure this is necessary
+git reset --hard # deletes Template's history
 ```
 
 ### Common steps 
