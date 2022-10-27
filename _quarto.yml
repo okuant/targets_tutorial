@@ -1,0 +1,35 @@
+format:
+  html:
+    theme: cosmo
+    anchor-sections: true
+    smooth-scroll: true
+    toc: true
+    toc-depth	: 2
+    toc-location: left
+    toc-title: "Contenidos"
+    number-sections: true
+    number-depth: 1
+    font-family: Lato
+    linestretch: 1.5
+    fontcolor: "#000000"
+    linkcolor: "#236292"
+    monobackgroundcolor: "#bdd1de"
+    fig-cap-location: margin
+    tbl-cap-location: top
+    code-fold: true
+    code-overflow: scroll
+    code-copy: true
+    execute:
+        echo: false
+        warning: false
+        message: false
+    link-external-newwindow: true
+    footnotes-hover: true
+    reference-location: margin
+    keywords: Okuant, Data Science, targets
+    license: "© Inversión en Activos Bancarios PK. All Rights Reserved."
+    pagetitle: "Introducción al paquete {targets}"
+    title-prefix: ODSR
+    author-meta: "Okuant, Data Science Department"
+    date-meta: "2022"
+    self-contained: true
