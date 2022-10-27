@@ -4,15 +4,32 @@ subtitle: "Manejo básico"
 author: "Depto. Data Science<br>Okuant"
 date: today
 ---
+# Introducción
 
-# Qué es targets
+## Qué es targets
 
 El paquete targets es una herramienta de flujo de trabajo similar a Make para la estadística y la ciencia de los datos en R. Con targets, se puede mantener un flujo de trabajo reproducible sin repetirse. Entre sus principales características está el evitar la ejecución de tareas que ya están actualizadas, ejecutando sólo el cálculo necesario. Además, admite computación paralela implícita, abstrae los archivos como objetos de R y muestra pruebas tangibles de que los resultados coinciden con el código y los datos subyacentes.
 
-# Estructura del proyecto
+## Estructura del proyecto
 
 Se sigue la estructura básica de un proyecto de R:
 
-\[estructura aquí\]
+```
+📦 targets_tutorial
+ ┣ 📂 data                      # Todos los datos necesarios para el proyecto
+ ┃  ┗ 📂 raw                 
+ ┣ 📂 src                       # Contiene los ficheros .R
+ ┣ 📜 _targets.R                # Script de target para configurar y definir el pipeline
+ ┣ 📜 .gitignore
+ ┣ 📜 README.md                 # Fichero markdown con la descripcion del proyecto
+ ┣ 📜 main.R                    # Script que contiene el pipeline del proyecto
+ ┗ 📜 targets_tutorial.Rproj    # R project file
 
+```
+
+## El archivo _targets.R
+
+## Monitorizar el pipeline
+
+## correr el pipeline
 
