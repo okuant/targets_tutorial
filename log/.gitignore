@@ -1,7 +1,0 @@
-# log/.gitignore
-
-# Ignore everything
-./*
-
-# Do not ignore .gitignore
-!./.gitignore

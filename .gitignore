@@ -1,17 +1,5 @@
 # General .gitignore
 
-# Ignore everything
-*
-
-# Do not ignore directories
-!./*/
-data/*
-
-# Do not ignore .gitignore files
-!./.gitignore
-
-# Do not ignore these types
-!./*.R
-!./*.md
-!./*.Rproj
 .Rproj.user
+_targets/
+*.html
