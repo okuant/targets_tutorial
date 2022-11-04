@@ -80,6 +80,19 @@ c(
   main_pl
 )
 ```
+Los bloques fundamentales del pipeline se construyen con la función `tar_target()` cuya estructura básica es
+```
+tar_target(
+  name = target_name
+  command = {
+    aux_1 = function_1(prev_target_1)
+    prev_target_2 %>% 
+      function_2(aux_1) %>% 
+      function_3()
+    }
+)
+```
+Es importante asegurarse de que el comando de un target tiene un valor de retorno.
 
 ## Correr el pipeline
 La función que ejecuta las instrucciones puestas en `_targets.R` es `tar_make()`:
@@ -132,3 +145,22 @@ htmltools::includeHTML("resources/ex_vn_errored.html")
 Para la monitorización de proyectos con pipelines más complicados se recomienda el uso de `tar_watch()`. Esta función se debe ejecutar en una nueva sesión de RStudio desde el mismo proyecto en que se ejecuta `tar_make()` y abrirá un Shiny Dashboard con información del progreso.
 
 ## Inspección de resultados
+Una vez completado el pipeline existe la opción de cargar en el entorno global con `tar_load(target_name)` o de leer directamente el resultado con `tar_read(target_name)` (`tar_name` puede estar indistintamente entrecomillado o no).
+
+```
+> tar_read(model)
+(Intercept)  writing_sc 
+  7.9400424   0.9014432 
+```
+
+```
+tar_read(plot)
+```
+```{r, echo=FALSE, fig.align='center'}
+knitr::include_graphics("resources/model_plot.png")
+```
+
+
+
+
+

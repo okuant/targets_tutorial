@@ -1,8 +1,9 @@
 # General .gitignore
 
+_targets/
 .Rproj.user
 .Rhistory
-_targets/
 *.html
+!resources/*.html
 
 /.quarto/
