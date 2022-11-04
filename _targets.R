@@ -7,24 +7,42 @@ library(magrittr)
 # Set target options:
 tar_option_set(
   packages = c("ggplot2"), # packages that your targets need to run
-  format = "RDS"            # default storage format
+  format = "rds"           # default storage format
 )
 
-# tar_make_clustermq() configuration (okay to leave alone):
-#options(clustermq.scheduler = "multiprocess")
-
 # Load the R scripts with your custom functions:
-lapply(list.files("src", full.names = TRUE, recursive = TRUE), source)
+source("src/functions.R")
+# Or source everything in src/ folder:
+# lapply(list.files("src", full.names = TRUE, recursive = TRUE), source)
 
-
+# Define sub-pipeline (input)
 input_pl <- list(
   tar_target(exams_file, "data/raw/exams.csv", format = "file")
 )
 
+# Define sub-pipeline (main)
 main_pl <- list(
-  tar_target(exams,
-             exams_file %>% 
-               fread() %>% 
-               rename_data()
+  tar_target(
+    exams,
+    exams_file %>% 
+      fread() %>% 
+      rename_data()
+  ),
+  
+  tar_target(
+    model,
+    {stop("kkfuti")
+      fit_model(exams)}
+  ),
+  
+  tar_target(
+    plot,
+    plot_model(exams, model)
   )
+)
+
+# Output: concatenate sub-pipelines
+c(
+  input_pl,
+  main_pl
 )

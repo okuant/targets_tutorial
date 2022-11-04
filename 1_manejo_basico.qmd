@@ -28,9 +28,94 @@ Se sigue la estructura básica de un proyecto de R:
 
 ```
 
-## El archivo _targets.R
+## Correr el pipeline
+```
+> tar_make()
+• start target exams_file
+• built target exams_file [0.196 seconds]
+• start target exams
+• built target exams [0.007 seconds]
+• start target model
+• built target model [0.012 seconds]
+• start target plot
+• built target plot [0.014 seconds]
+• end pipeline [0.535 seconds]
+```
+
+## El archivo `_targets.R`
+El corazón de `targets`, donde definimos el pipeline:
+```{r, eval = FALSE, echo = TRUE}
+# Load packages required to define the pipeline:
+library(targets)
+library(tarchetypes)
+library(data.table)
+library(magrittr)
+
+
+# Set target options:
+tar_option_set(
+  packages = c("ggplot2"), # packages that your targets need to run
+  format = "rds"           # default storage format
+)
+
+# Load the R scripts with your custom functions:
+source("src/functions.R")
+# Or source everything in src/ folder:
+# lapply(list.files("src", full.names = TRUE, recursive = TRUE), source)
+
+# Define sub-pipeline (input)
+input_pl <- list(
+  tar_target(exams_file, "data/raw/exams.csv", format = "file")
+)
+
+# Define sub-pipeline (main)
+main_pl <- list(
+  tar_target(
+    exams,
+    exams_file %>% 
+      fread() %>% 
+      rename_data()
+  ),
+  
+  tar_target(
+    model,
+    fit_model(exams)
+  ),
+  
+  tar_target(
+    plot,
+    plot_model(exams, model)
+  )
+)
+
+# Output: concatenate sub-pipelines
+c(
+  input_pl,
+  main_pl
+)
+```
 
 ## Monitorizar el pipeline
+Tenemos dos opciones principales:
 
-## correr el pipeline
+`tar_manifest()` devuelve un `tibble` resumiendo el nombre de cada target y el
+comando asociado:
+```
+> tar_manifest()
+# A tibble: 4 × 2
+  name       command                                   
+  <chr>      <chr>                                     
+1 exams_file "\"data/raw/exams.csv\""                  
+2 exams      "exams_file %>% fread() %>% rename_data()"
+3 model      "fit_model(exams)"                        
+4 plot       "plot_model(exams, model)"    
+```
+
+Para una representación gráfica del pipeline tenemos la función `tar_visnetwork()`:
+
+```{r, echo = FALSE}
+htmltools::includeHTML("resources/ex_vn_errored.html")
+
+```
+
 

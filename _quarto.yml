@@ -16,7 +16,7 @@ format:
     monobackgroundcolor: "#bdd1de"
     fig-cap-location: margin
     tbl-cap-location: top
-    code-fold: true
+    code-fold: false
     code-overflow: scroll
     code-copy: true
     execute:
