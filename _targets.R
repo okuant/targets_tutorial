@@ -7,7 +7,7 @@ library(magrittr)
 # Set target options:
 tar_option_set(
   packages = c("ggplot2"), # packages that your targets need to run
-  format = "qs"            # default storage format
+  format = "RDS"            # default storage format
 )
 
 # tar_make_clustermq() configuration (okay to leave alone):
