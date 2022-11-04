@@ -16,14 +16,15 @@ Se sigue la estructura básica de un proyecto de R:
 
 ```
 📦 targets_tutorial
- ┣ 📂 data                      # Todos los datos necesarios para el proyecto
+ ┣ 📂 data                      # Datos necesarios para el proyecto
  ┃  ┗ 📂 raw                 
- ┣ 📂 src                       # Contiene los ficheros .R
- ┣ 📜 _targets.R                # Script de target para configurar y definir el pipeline
- ┣ 📜 .gitignore
- ┣ 📜 README.md                 # Fichero markdown con la descripcion del proyecto
- ┣ 📜 main.R                    # Script que contiene el pipeline del proyecto
- ┗ 📜 targets_tutorial.Rproj    # R project file
+ ┣ 📂 src                       # Archivos de código específico
+ ┃  ┗ 📜 functions.R
+ ┣ 📂 _targets                  # Datos y metadatos de targets
+ ┣ 📜 _targets.R                # Definición del pipeline
+ ┣ 📜 README.md                 # Descripcion del proyecto
+ ┣ 📜 main.R                    # Script para lanzar el pipeline
+ ┗ 📜 .gitignore
 
 ```
 
