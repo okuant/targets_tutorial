@@ -31,8 +31,7 @@ main_pl <- list(
   
   tar_target(
     model,
-    {stop("kkfuti")
-      fit_model(exams)}
+    fit_model(exams)
   ),
   
   tar_target(
