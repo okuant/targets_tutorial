@@ -28,20 +28,6 @@ Se sigue la estructura básica de un proyecto de R:
 
 ```
 
-## Correr el pipeline
-```
-> tar_make()
-• start target exams_file
-• built target exams_file [0.196 seconds]
-• start target exams
-• built target exams [0.007 seconds]
-• start target model
-• built target model [0.012 seconds]
-• start target plot
-• built target plot [0.014 seconds]
-• end pipeline [0.535 seconds]
-```
-
 ## El archivo `_targets.R`
 El corazón de `targets`, donde definimos el pipeline:
 ```{r, eval = FALSE, echo = TRUE}
@@ -95,8 +81,33 @@ c(
 )
 ```
 
+## Correr el pipeline
+La función que ejecuta las instrucciones puestas en `_targets.R` es `tar_make()`:
+```
+> tar_make()
+• start target exams_file
+• built target exams_file [0.196 seconds]
+• start target exams
+• built target exams [0.007 seconds]
+• start target model
+• built target model [0.012 seconds]
+• start target plot
+• built target plot [0.014 seconds]
+• end pipeline [0.535 seconds]
+```
+
+Esta función comprueba el estado de cada target para no repetir la computación de targets que ya se han ejecutado. En el siguiente ejemplo se muestra el resultado de una segunda llamada a `tar_make()` sin haber cambiado el código ni los datos de entrada:
+```
+> tar_make()
+✔ skip target exams_file
+✔ skip target exams
+✔ skip target model
+✔ skip target plot
+✔ skip pipeline [0.28 seconds]
+```
+
 ## Monitorizar el pipeline
-Tenemos dos opciones principales:
+Para una inspección básica del pipeline tenemos dos opciones principales:
 
 `tar_manifest()` devuelve un `tibble` resumiendo el nombre de cada target y el
 comando asociado:
@@ -110,12 +121,14 @@ comando asociado:
 3 model      "fit_model(exams)"                        
 4 plot       "plot_model(exams, model)"    
 ```
+No es necesario haber ejecutado `tar_make()` previamente. `tar_manifest()` inspecciona `_targets.R` para extraer la información de cada target.
 
-Para una representación gráfica del pipeline tenemos la función `tar_visnetwork()`:
+Para una representación gráfica del pipeline tenemos la función `tar_visnetwork()`, que devuelve un gráfico en html con las dependencias entre targets y en color, el estado de cada uno:
 
 ```{r, echo = FALSE}
 htmltools::includeHTML("resources/ex_vn_errored.html")
-
 ```
 
+Para la monitorización de proyectos con pipelines más complicados se recomienda el uso de `tar_watch()`. Esta función se debe ejecutar en una nueva sesión de RStudio desde el mismo proyecto en que se ejecuta `tar_make()` y abrirá un Shiny Dashboard con información del progreso.
 
+## Inspección de resultados
