@@ -1,6 +1,7 @@
 # General .gitignore
 
 .Rproj.user
+.Rhistory
 _targets/
 *.html
 
