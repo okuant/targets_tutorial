@@ -29,7 +29,7 @@ Se sigue la estructura básica de un proyecto de R:
 ```
 
 ## El archivo `_targets.R`
-El corazón de `targets`, donde definimos el pipeline:
+El corazón de `targets`, donde definimos el _pipeline_:
 ```{r, eval = FALSE, echo = TRUE}
 # Load packages required to define the pipeline:
 library(targets)
@@ -74,13 +74,21 @@ main_pl <- list(
   )
 )
 
+out_pl <- list(
+  tar_quarto(
+    ex_report,
+    "ex_report.qmd"
+  )
+)
+
 # Output: concatenate sub-pipelines
 c(
   input_pl,
-  main_pl
+  main_pl,
+  out_pl
 )
 ```
-Los bloques fundamentales del pipeline se construyen con la función `tar_target()` cuya estructura básica es
+Los bloques fundamentales del _pipeline_ se construyen con la función `tar_target()` cuya estructura básica es
 ```
 tar_target(
   name = target_name
@@ -92,12 +100,15 @@ tar_target(
     }
 )
 ```
+
+:::{.callout-important}
 Es importante asegurarse de que el comando de un target tiene un valor de retorno.
+:::
 
 Al final del script se debe incluir la lista de todos los targets creados con
 `tar_target()` como si del valor de retorno de una función se tratase.
 
-## Correr el pipeline
+## Correr el _pipeline_
 La función que ejecuta las instrucciones puestas en `_targets.R` es `tar_make()`:
 ```
 > tar_make()
@@ -122,8 +133,8 @@ Esta función comprueba el estado de cada target para no repetir la computación
 ✔ skip pipeline [0.28 seconds]
 ```
 
-## Monitorizar el pipeline
-Para una inspección básica del pipeline tenemos dos opciones principales:
+## Monitorizar el _pipeline_
+Para una inspección básica del _pipeline_ tenemos dos opciones principales:
 
 `tar_manifest()` devuelve un `tibble` resumiendo el nombre de cada target y el
 comando asociado:
@@ -139,19 +150,29 @@ comando asociado:
 ```
 No es necesario haber ejecutado `tar_make()` previamente. `tar_manifest()` inspecciona `_targets.R` para extraer la información de cada target.
 
-Para una representación gráfica del pipeline tenemos la función `tar_visnetwork()`, que devuelve un gráfico en html con las dependencias entre targets y en color, el estado de cada uno:
+Para una representación gráfica del _pipeline_ tenemos la función `tar_visnetwork()`, que devuelve un gráfico en html con las dependencias entre targets y en color, el estado de cada uno:
 
 ```{r, echo = FALSE}
 htmltools::includeHTML("resources/ex_vn_errored.html")
 ```
 
-Para la monitorización de proyectos con pipelines más complicados se recomienda el uso de `tar_watch()`. Esta función se debe ejecutar en una nueva sesión de RStudio desde el mismo proyecto en que se ejecuta `tar_make()` y abrirá un Shiny Dashboard con información del progreso.
+:::{.callout-tip}
+Para simplificar la _visnetwork_ podemos usar el argumento `targets_only = TRUE`.
+:::
+
+Ejemplo de _pipeline_ de la vida real:
+
+```{r, echo = FALSE}
+htmltools::includeHTML("resources/ex_vn_reallife.html")
+```
+
+Para la monitorización de proyectos con _pipelines_ más complicados se recomienda el uso de `tar_watch()`. Esta función se debe ejecutar en una nueva sesión de RStudio desde el mismo proyecto en que se ejecuta `tar_make()` y abrirá un Shiny Dashboard con información del progreso.
 
 ## Inspección de resultados
-Una vez completado el pipeline existe la opción de cargar en el entorno global con `tar_load(target_name)` o de leer directamente el resultado con `tar_read(target_name)` (`tar_name` puede estar indistintamente entrecomillado o no).
+Una vez completado el _pipeline_ existe la opción de cargar en el entorno global con `tar_load(target_name)` o de leer directamente el resultado con `tar_read(target_name)` (`tar_name` puede estar indistintamente entrecomillado o no).
 
 ```
-> tar_read(model)
+> tar_read(model$coefficients)
 (Intercept)  writing_sc 
   7.9400424   0.9014432 
 ```
@@ -163,7 +184,20 @@ tar_read(plot)
 knitr::include_graphics("resources/model_plot.png")
 ```
 
+## Presentación de resultados
+Hemos hecho un informe de Quarto para presentar los resultados del 
+análisis. El script es `ex_report.qmd`, y en él se especifican los targets que
+queremos mostrar como se ha visto en la sección anterior, con `tar_read()` y
+`tar_load()`. Para renderizar el informe, usamos la función,
+`tarchetypes::tar_quarto()`. Ésta no sólo renderiza el informe, sino que detecta las dependencias entre el informe y el resto de targets, como podemos
+verificar en la _visnetwork_:
+
+```{r, echo = FALSE}
+htmltools::includeHTML("resources/ex_vn_report.html")
+```
 
 
-
-
+## Funcionalidades más avanzadas
+- Ramificación estática y dinámica (static and dynamic branching)
+- _Debugging_ con la opción `workspace_on_error`
+- Computación en paralelo
