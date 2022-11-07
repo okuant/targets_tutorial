@@ -94,6 +94,9 @@ tar_target(
 ```
 Es importante asegurarse de que el comando de un target tiene un valor de retorno.
 
+Al final del script se debe incluir la lista de todos los targets creados con
+`tar_target()` como si del valor de retorno de una función se tratase.
+
 ## Correr el pipeline
 La función que ejecuta las instrucciones puestas en `_targets.R` es `tar_make()`:
 ```

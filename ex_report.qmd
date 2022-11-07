@@ -1,0 +1,25 @@
+---
+title: "ex_report"
+editor: visual
+---
+
+## Informe básico
+
+Ejemplo de informe básico
+
+## Modelo
+
+Leemos el modelo con `tar_read()` y lo mostramos con `summary()`:
+
+```{r, echo = TRUE}
+summary(targets::tar_read(model))
+```
+
+## Gráfico
+
+Leemos el gráfico con `tar_read()`:
+
+```{r, echo = TRUE}
+targets::tar_read(plot)
+```
+

@@ -6,8 +6,8 @@ library(magrittr)
 
 # Set target options:
 tar_option_set(
-  packages = c("ggplot2"), # packages that your targets need to run
-  format = "rds"           # default storage format
+  packages = c("ggplot2", "quarto"), # packages that your targets need to run
+  format = "rds"                     # default storage format
 )
 
 # Load the R scripts with your custom functions:
@@ -40,8 +40,16 @@ main_pl <- list(
   )
 )
 
+out_pl <- list(
+  tar_quarto(
+    ex_report,
+    "ex_report.qmd"
+  )
+)
+
 # Output: concatenate sub-pipelines
 c(
   input_pl,
-  main_pl
+  main_pl,
+  out_pl
 )
