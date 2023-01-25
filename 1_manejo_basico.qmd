@@ -10,6 +10,11 @@ date: today
 
 El paquete targets es una herramienta de flujo de trabajo similar a Make para la estadística y la ciencia de los datos en R. Con targets, se puede mantener un flujo de trabajo reproducible sin repetirse. Entre sus principales características está el evitar la ejecución de tareas que ya están actualizadas, ejecutando sólo el cálculo necesario. Además, admite computación paralela implícita, abstrae los archivos como objetos de R y muestra pruebas tangibles de que los resultados coinciden con el código y los datos subyacentes.
 
+### Recursos
+https://books.ropensci.org/targets
+
+https://github.com/okuant/targets_tutorial
+
 ## Estructura del proyecto
 
 Se sigue la estructura básica de un proyecto de R:
@@ -25,7 +30,6 @@ Se sigue la estructura básica de un proyecto de R:
  ┣ 📜 README.md                 # Descripcion del proyecto
  ┣ 📜 main.R                    # Script para lanzar el pipeline
  ┗ 📜 .gitignore
-
 ```
 
 ## El archivo `_targets.R`
