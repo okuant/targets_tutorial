@@ -17,39 +17,41 @@ source("src/functions.R")
 
 # Define sub-pipeline (input)
 input_pl <- list(
-  tar_target(exams_file, "data/raw/exams.csv", format = "file")
-)
-
-# Define sub-pipeline (main)
-main_pl <- list(
+  tar_target(exams_file, "data/raw/exams.csv", format = "file"),
+  
   tar_target(
     exams,
     exams_file %>% 
       fread() %>% 
       rename_data()
-  ),
+  )
+)
+
+# Parameters for mapping
+values <- data.table(
+  names = c("ab", "nointercept"),
+  fit_function = rlang::syms(c("fit_model", "fit_model_no_incpt")),
+  fit_line_color = c("red", "green")
+)
+
+# Define sub-pipeline (main)
+main_pl <- tar_map(
+  values = values,
+  names = names,
   
   tar_target(
     model,
-    fit_model(exams)
+    fit_function(exams)
   ),
   
   tar_target(
     plot,
-    plot_model(exams, model, "red")
-  )
-)
-
-out_pl <- list(
-  tar_quarto(
-    ex_report,
-    "ex_report.qmd"
+    plot_model(exams, model, fit_line_color)
   )
 )
 
 # Output: concatenate sub-pipelines
 c(
   input_pl,
-  main_pl,
-  out_pl
+  main_pl
 )
