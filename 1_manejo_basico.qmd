@@ -8,7 +8,14 @@ date: today
 
 ## Qué es targets
 
-El paquete targets es una herramienta de flujo de trabajo similar a Make para la estadística y la ciencia de los datos en R. Con targets, se puede mantener un flujo de trabajo reproducible sin repetirse. Entre sus principales características está el evitar la ejecución de tareas que ya están actualizadas, ejecutando sólo el cálculo necesario. Además, admite computación paralela implícita, abstrae los archivos como objetos de R y muestra pruebas tangibles de que los resultados coinciden con el código y los datos subyacentes.
+El paquete targets es una herramienta de flujo de trabajo similar a Make
+para la estadística y la ciencia de los datos en R. Con targets, se puede
+mantener un flujo de trabajo reproducible sin repetir trabajo ya hecho.
+Entre sus principales características está el evitar la ejecución de tareas que
+ya están actualizadas, ejecutando sólo los cálculos necesarios.
+Además, admite computación paralela implícita, abstrae los archivos como objetos
+de R y muestra pruebas tangibles de que los resultados coinciden con el código y
+los datos subyacentes.
 
 ### Recursos
 https://books.ropensci.org/targets
@@ -25,7 +32,9 @@ Se sigue la estructura básica de un proyecto de R:
  ┃  ┗ 📂 raw                 
  ┣ 📂 src                       # Archivos de código específico
  ┃  ┗ 📜 functions.R
- ┣ 📂 _targets                  # Datos y metadatos de targets
+ ┣ 📂 _targets
+ ┃  ┗ 📂 meta                   # Metadatos de los targs
+ ┃  ┗ 📂 objects                # Objetos de targets guardados
  ┣ 📜 _targets.R                # Definición del pipeline
  ┣ 📜 README.md                 # Descripcion del proyecto
  ┣ 📜 main.R                    # Script para lanzar el pipeline
@@ -110,7 +119,7 @@ Es importante asegurarse de que el comando de un target tiene un valor de retorn
 :::
 
 Al final del script se debe incluir la lista de todos los targets creados con
-`tar_target()` como si del valor de retorno de una función se tratase.
+`tar_target()` como si se tratase del valor de retorno de una función.
 
 ## Correr el _pipeline_
 La función que ejecuta las instrucciones puestas en `_targets.R` es `tar_make()`:
@@ -138,9 +147,9 @@ Esta función comprueba el estado de cada target para no repetir la computación
 ```
 
 ## Monitorizar el _pipeline_
-Para una inspección básica del _pipeline_ tenemos dos opciones principales:
+Disponemos de varias herramientas para inspeccionar el _pipeline_:
 
-`tar_manifest()` devuelve un `tibble` resumiendo el nombre de cada target y el
+`tar_manifest()` devuelve una `tibble` resumiendo el nombre de cada target y el
 comando asociado:
 ```
 > tar_manifest()
@@ -152,7 +161,9 @@ comando asociado:
 3 model      "fit_model(exams)"                        
 4 plot       "plot_model(exams, model)"    
 ```
-No es necesario haber ejecutado `tar_make()` previamente. `tar_manifest()` inspecciona `_targets.R` para extraer la información de cada target.
+No es necesario haber ejecutado `tar_make()` previamente.
+`tar_manifest()` inspecciona el archivo `_targets.R` para extraer la información
+de cada target.
 
 Para una representación gráfica del _pipeline_ tenemos la función `tar_visnetwork()`, que devuelve un gráfico en html con las dependencias entre targets y en color, el estado de cada uno:
 
@@ -170,10 +181,15 @@ Ejemplo de _pipeline_ de la vida real:
 htmltools::includeHTML("resources/ex_vn_reallife.html")
 ```
 
-Para la monitorización de proyectos con _pipelines_ más complicados se recomienda el uso de `tar_watch()`. Esta función se debe ejecutar en una nueva sesión de RStudio desde el mismo proyecto en que se ejecuta `tar_make()` y abrirá un Shiny Dashboard con información del progreso.
+Para la monitorización de proyectos con _pipelines_ más complicados recomendamos usar `tar_watch()`. Esta función se debe ejecutar en una nueva sesión de RStudio desde el mismo proyecto en que se ejecuta `tar_make()` y abrirá un Shiny Dashboard con información del progreso.
 
 ## Inspección de resultados
-Una vez completado el _pipeline_ existe la opción de cargar en el entorno global con `tar_load(target_name)` o de leer directamente el resultado con `tar_read(target_name)` (`tar_name` puede estar indistintamente entrecomillado o no).
+Una vez se ejecuta el comando asociado a un target, éste queda salvado en disco
+(físicamente será un archivo en la carpeta `_targets/objects`). Para recuperarlo
+como objeto de R no es necesario recurrir a `readRDS()` o `qs::qread()`, ya que
+targets ofrece las funciones `tar_read(target_name)` y `tar_load(target_name)`
+(ésta última es equivalente a `target_name <- tar_read(target_name)`).
+En ambos casos el `target_name` puede estar indistintamente entrecomillado o no.
 
 ```
 > tar_read(model$coefficients)
@@ -190,11 +206,12 @@ knitr::include_graphics("resources/model_plot.png")
 
 ## Presentación de resultados
 Hemos hecho un informe de Quarto para presentar los resultados del 
-análisis. El script es `ex_report.qmd`, y en él se especifican los targets que
-queremos mostrar como se ha visto en la sección anterior, con `tar_read()` y
+análisis. El script es `ex_report.qmd`, y en él se llama a los targets que
+queremos mostrar, como se ha visto en la sección anterior, con `tar_read()` y
 `tar_load()`. Para renderizar el informe, usamos la función,
-`tarchetypes::tar_quarto()`. Ésta no sólo renderiza el informe, sino que detecta las dependencias entre el informe y el resto de targets, como podemos
-verificar en la _visnetwork_:
+`tarchetypes::tar_quarto()`. Ésta no sólo renderiza el informe,
+sino que detecta las dependencias entre el informe y el resto de targets,
+como podemos verificar en la _visnetwork_:
 
 ```{r, echo = FALSE}
 htmltools::includeHTML("resources/ex_vn_report.html")
